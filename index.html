@@ -1,0 +1,39 @@
+<html>
+  <body>
+    <input id="num" type="number" />
+    <button id="btn" onclick="handleClickGO()">Click-go</button>
+    <input id="num2" type="number" />
+    <button id="btn" onclick="handleClick()">Click</button>
+    <p id="ans">1</p>
+    <p id="ans2">1</p>
+  </body>
+  <script src="static/wasm_exec.js"></script>
+  <script>
+    const go = new Go();
+    WebAssembly.instantiateStreaming(
+      fetch("static/main.wasm"),
+      go.importObject
+    ).then((result) => go.run(result.instance));
+
+    function fib(i) {
+      if (i == 0 || i == 1) {
+        return 1;
+      }
+      return fib(i - 1) + fib(i - 2);
+    }
+
+    function handleClickGO() {
+      const now = Date.now();
+
+      fibFunc(num.value * 1, (v) => (ans.innerHTML = v));
+      console.log(Date.now() - now);
+    }
+
+    function handleClick() {
+      const now = Date.now();
+
+      ans2.innerHTML = fib(num2.value * 1);
+      console.log(Date.now() - now);
+    }
+  </script>
+</html>

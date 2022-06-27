@@ -1,0 +1,7 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/manbang/Desktop/go/wasm-go'
+GO111MODULE=auto GOOS=js GOARCH=wasm go build -o static/main.wasm .
+cp "/usr/local/go/misc/wasm/wasm_exec.js" static
+goexec 'http.ListenAndServe(`:9999`, http.FileServer(http.Dir(`.`)))'
+make: Leaving directory `/Users/manbang/Desktop/go/wasm-go'
+ 
